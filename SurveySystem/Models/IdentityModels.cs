@@ -31,5 +31,9 @@ namespace SurveySystem.Models
         }
 
         public System.Data.Entity.DbSet<SurveySystem.Models.User> ApplicationUsers { get; set; }
+        public System.Data.Entity.DbSet<SurveySystem.Models.Survey> ApplicationSurveys { get; set; }
+        public System.Data.Entity.DbSet<SurveySystem.Models.Question> ApplicationQuestions { get; set; }
+        public System.Data.Entity.DbSet<SurveySystem.Models.QuestionGroup> ApplicationQuestionGroups { get; set; }
+        public System.Data.Entity.DbSet<SurveySystem.Models.SurveyResult> ApplicationSurveyResults { get; set; }
     }
 }
