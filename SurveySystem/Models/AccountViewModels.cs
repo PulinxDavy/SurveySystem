@@ -65,9 +65,22 @@ namespace SurveySystem.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [EmailAddress]
+        [Display(Name = "Confirm email")]
+        [Compare("Email", ErrorMessage = "The email address and the confirmation address do not match.")]
+        public string ConfirmEmail { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -79,6 +92,15 @@ namespace SurveySystem.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Cellphone number")]
+        public string CellPhone { get; set; }
+
     }
 
     public class ResetPasswordViewModel

@@ -29,5 +29,7 @@ namespace SurveySystem.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<SurveySystem.Models.User> ApplicationUsers { get; set; }
     }
 }
