@@ -9,7 +9,7 @@ namespace SurveySystem.Models
     {
         public List<string> Answers { get; set; }
 
-        public override object Answer
+        public override List<string> Answer
         {
             get { return Answers; }
         }

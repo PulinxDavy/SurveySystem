@@ -7,9 +7,9 @@ namespace SurveySystem.Models
 {
     public class OpenEndQ : Question
     {
-        public string AnswerO { get; set; }
+        public List<string> AnswerO { get; set; }
 
-        public override object Answer
+        public override List<string> Answer
         {
             get { return AnswerO; }
         }

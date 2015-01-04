@@ -9,7 +9,7 @@ namespace SurveySystem.Models
     {
         public int Id { get; set; }
 
-        public abstract object Answer { get; }
+        public abstract List<string> Answer { get; }
 
         public abstract string Type { get; }
 

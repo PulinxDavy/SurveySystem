@@ -9,14 +9,14 @@ namespace SurveySystem.Models
     {
         public abstract List<string> Answers { get; }
 
-        public override object Answer
+        public override List<string> Answer
         {
             get { return Answers; }
         }
 
         public override string Type
         {
-            get { return "AppreciationQ"; }
+            get { return "Appreciation"; }
         }
     }
 }

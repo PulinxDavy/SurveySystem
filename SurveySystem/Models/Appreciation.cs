@@ -11,10 +11,10 @@ namespace SurveySystem.Models
 
         public Appreciation()
         {
-            Choices.Add("Zeer Slecht");
-            Choices.Add("Slecht");
-            Choices.Add("Goed");
-            Choices.Add("Zeer Goed");
+            Choices.Add("Very bad");
+            Choices.Add("bad");
+            Choices.Add("Good");
+            Choices.Add("Very Good");
         }
 
         public override List<string> Answers
@@ -24,7 +24,7 @@ namespace SurveySystem.Models
 
         public override string Type
         {
-            get { return "Appreciation"; }
+            get { return "Very bad - Very good"; }
         }
     }
 }
