@@ -26,12 +26,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.QuestionTypes, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Question.Type, Model.QuestionTypeItems, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.DropDownListFor(model => model.Question.Type, Model.QuestionTypeItems, new {htmlAttributes = new {@class = "form-control", @id = "QDropDownList"}})
                 @Html.ValidationMessageFor(model => model.Question.Type, "", new {@class = "text-danger"})
             </div>
         </div>
 
-        <div class="form-group" id="appreciation" style="display: none;">
+        <div id="appreciate" class="form-group">
             @Html.LabelFor(model => model.AppreciationTypes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Question.Type, Model.AppreciationTypeItems, "Select Question Type", new { htmlAttributes = new { @class = "form-control" } })
@@ -39,14 +39,30 @@
             </div>
         </div>
 
-        <div class="form-group" id="multiple" style="display: none;">
-            @Html.LabelFor(model => model.Question.Answer, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group" id="multiple">
+            @Html.LabelFor(model => model.Question.Answer, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.Label("Multiple Values are possible, spereate the values with ';'.", new { htmlAttributes = new { @class = "text-info" } })
-                @Html.EditorFor(model => model.Question.Answer, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Question.Answer, "", new { @class = "text-danger" })
+                @Html.Label("Multiple Values are possible, spereate the values with ';'.", new {htmlAttributes = new {@class = "text-info"}})
+                @Html.EditorFor(model => model.Question.Answer, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Question.Answer, "", new {@class = "text-danger"})
             </div>
         </div>
+
+        @section scripts
+        {
+            <script>
+                $(document).ready(function () {
+                    $("#appreciate").style.display = NONE;
+                    $("#QDropDownList").onchange(showOnChange);
+                });
+
+                function showOnChange() {
+                    if ($("#QDropDownList") === "Appreciation") {
+                        $("#appreciate").style.display = "block";
+                    }
+                }
+            </script>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
