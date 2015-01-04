@@ -162,7 +162,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\QuestionGroupsController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,17 +179,9 @@
     <Compile Include="Migrations\201412311459461_RemodeldAccountViewModel.Designer.cs">
       <DependentUpon>201412311459461_RemodeldAccountViewModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201501021411582_veranderingUser.cs" />
-    <Compile Include="Migrations\201501021411582_veranderingUser.Designer.cs">
-      <DependentUpon>201501021411582_veranderingUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501031357342_veranderingQuestionGroups.cs" />
-    <Compile Include="Migrations\201501031357342_veranderingQuestionGroups.Designer.cs">
-      <DependentUpon>201501031357342_veranderingQuestionGroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501031404557_veranderingQuestionGroups2.cs" />
-    <Compile Include="Migrations\201501031404557_veranderingQuestionGroups2.Designer.cs">
-      <DependentUpon>201501031404557_veranderingQuestionGroups2.cs</DependentUpon>
+    <Compile Include="Migrations\201501031053485_ChangesInQuestionClasses.cs" />
+    <Compile Include="Migrations\201501031053485_ChangesInQuestionClasses.Designer.cs">
+      <DependentUpon>201501031053485_ChangesInQuestionClasses.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -208,6 +200,7 @@
     <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\SurveyResult.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="ViewModels\QuestionVM.cs" />
     <Compile Include="ViewModels\SurveyVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -272,11 +265,11 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\QuestionGroups\Create.cshtml" />
-    <Content Include="Views\QuestionGroups\Delete.cshtml" />
-    <Content Include="Views\QuestionGroups\Details.cshtml" />
-    <Content Include="Views\QuestionGroups\Edit.cshtml" />
-    <Content Include="Views\QuestionGroups\Index.cshtml" />
+    <Content Include="Views\Question\Index.cshtml" />
+    <Content Include="Views\Question\Delete.cshtml" />
+    <Content Include="Views\Question\Details.cshtml" />
+    <Content Include="Views\Question\Edit.cshtml" />
+    <Content Include="Views\Question\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -298,14 +291,8 @@
     <EmbeddedResource Include="Migrations\201412311459461_RemodeldAccountViewModel.resx">
       <DependentUpon>201412311459461_RemodeldAccountViewModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501021411582_veranderingUser.resx">
-      <DependentUpon>201501021411582_veranderingUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501031357342_veranderingQuestionGroups.resx">
-      <DependentUpon>201501031357342_veranderingQuestionGroups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501031404557_veranderingQuestionGroups2.resx">
-      <DependentUpon>201501031404557_veranderingQuestionGroups2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501031053485_ChangesInQuestionClasses.resx">
+      <DependentUpon>201501031053485_ChangesInQuestionClasses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

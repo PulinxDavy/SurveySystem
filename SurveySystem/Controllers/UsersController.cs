@@ -10,14 +10,13 @@ using SurveySystem.Models;
 
 namespace SurveySystem.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.ApplicationUsers.ToList());
+            return View(Db.ApplicationUsers.ToList());
         }
 
         // GET: Users/Details/5
@@ -27,7 +26,7 @@ namespace SurveySystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.ApplicationUsers.Find(id);
+            User user = Db.ApplicationUsers.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -42,7 +41,7 @@ namespace SurveySystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.ApplicationUsers.Find(id);
+            User user = Db.ApplicationUsers.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -55,12 +54,12 @@ namespace SurveySystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FirstName,LastName,Telephone,Cellphone")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Email,PhoneNumber,UserName,FirstName,LastName,Cellphone")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(user).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -73,7 +72,7 @@ namespace SurveySystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.ApplicationUsers.Find(id);
+            User user = Db.ApplicationUsers.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -86,19 +85,10 @@ namespace SurveySystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            User user = db.ApplicationUsers.Find(id);
-            db.ApplicationUsers.Remove(user);
-            db.SaveChanges();
+            User user = Db.ApplicationUsers.Find(id);
+            Db.ApplicationUsers.Remove(user);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

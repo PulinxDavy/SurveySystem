@@ -1,0 +1,44 @@
+﻿@model SurveySystem.ViewModels.QuestionVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Question</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.QuestionString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question.QuestionString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Question.Answer)
+        </dt>
+
+        @foreach (var item in Model.Question.Answer)
+        {
+            <dd>
+                @Html.DisplayFor(modelItem => item)
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Question.Id}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
