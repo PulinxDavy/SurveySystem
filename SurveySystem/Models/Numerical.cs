@@ -11,6 +11,7 @@ namespace SurveySystem.Models
 
         public Numerical()
         {
+            Choices = new List<string>();
             for (int i = 1; i <= 10; i++)
             {
                 Choices.Add(i.ToString());
@@ -22,7 +23,7 @@ namespace SurveySystem.Models
             get { return Choices; }
         }
 
-        public override string Type
+        public override string AppreciationType
         {
             get { return "Numerical"; }
         }

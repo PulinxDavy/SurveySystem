@@ -11,34 +11,39 @@
     <hr/>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Question.QuestionString)
+            @Html.DisplayNameFor(model => model.QuestionString)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Question.QuestionString)
+            @Html.DisplayFor(model => model.QuestionString)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Question.Type)
+            @Html.DisplayNameFor(model => model.TypeOfQuestion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Question.Type)
+            @Html.DisplayFor(model => model.TypeOfQuestion)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Question.Answer)
+            @Html.DisplayNameFor(model => model.TypeOfAppreciation)
         </dt>
 
-        @foreach (var item in Model.Question.Answer)
-        {
-            <dd>
-                @Html.DisplayFor(modelItem => item)
-            </dd>
-        }
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfAppreciation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Answer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Answer)
+        </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.Question.Id}) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -13,65 +13,83 @@
 
     <div class="form-horizontal">
         <h4>Question</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.Question.QuestionString, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.QuestionString, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Question.QuestionString, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Question.QuestionString, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.QuestionString, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.QuestionString, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.QuestionTypes, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Question.Type, Model.QuestionTypeItems, new {htmlAttributes = new {@class = "form-control", @id = "QDropDownList"}})
-                @Html.ValidationMessageFor(model => model.Question.Type, "", new {@class = "text-danger"})
+                @Html.DropDownListFor(model => model.TypeOfQuestion, Model.QuestionTypeItems, "Select Question Type", new { @class = "form-control", @id = "QDropDownList" })
+                @Html.ValidationMessageFor(model => model.TypeOfQuestion, "", new {@class = "text-danger"})
             </div>
         </div>
 
         <div id="appreciate" class="form-group">
-            @Html.LabelFor(model => model.AppreciationTypes, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AppreciationTypes, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Question.Type, Model.AppreciationTypeItems, "Select Question Type", new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Question.Type, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.TypeOfAppreciation, Model.AppreciationTypeItems, "Select Question Type", new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.TypeOfAppreciation, "", new {@class = "text-danger"})
             </div>
+        </div>
+
+        <div id="info" class="form-group">
+            <div class="col-md-2"></div>
+            <span class="text-info col-md-10">The possible answers can be multiple values, seperate them with a ';'.</span>
         </div>
 
         <div class="form-group" id="multiple">
-            @Html.LabelFor(model => model.Question.Answer, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Answer, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.Label("Multiple Values are possible, spereate the values with ';'.", new {htmlAttributes = new {@class = "text-info"}})
-                @Html.EditorFor(model => model.Question.Answer, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Question.Answer, "", new {@class = "text-danger"})
+                @Html.EditorFor(model => model.Answer, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Answer, "", new {@class = "text-danger"})
             </div>
         </div>
-
-        @section scripts
-        {
-            <script>
-                $(document).ready(function () {
-                    $("#appreciate").style.display = NONE;
-                    $("#QDropDownList").onchange(showOnChange);
-                });
-
-                function showOnChange() {
-                    if ($("#QDropDownList") === "Appreciation") {
-                        $("#appreciate").style.display = "block";
-                    }
-                }
-            </script>
-        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default"/>
             </div>
         </div>
     </div>
+    
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#appreciate").hide();
+            $("#multiple").hide();
+            $("#info").hide();
+            $("#QDropDownList").change(showOnChange);
+        });
+
+        function showOnChange() {
+            if (document.getElementById("QDropDownList").value === "Appreciation") {
+                $("#appreciate").show();
+                $("#multiple").hide();
+                $("#info").hide();
+            }
+             else if (document.getElementById("QDropDownList").value === "OpenEnd") {
+                $("#appreciate").hide();
+                $("#multiple").hide();
+                $("#info").hide();
+            } else {
+                $("#appreciate").hide();
+                $("#multiple").show();
+                $("#info").show();
+            }
+        }
+    </script>
+}

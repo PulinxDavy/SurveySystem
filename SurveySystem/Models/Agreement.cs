@@ -11,6 +11,7 @@ namespace SurveySystem.Models
 
         public Agreement()
         {
+            Choices = new List<string>();
             Choices.Add("Akkoord");
             Choices.Add("Niet Akkoord");
             Choices.Add("Geen Mening");
@@ -21,7 +22,7 @@ namespace SurveySystem.Models
             get { return Choices; }
         }
 
-        public override string Type
+        public override string AppreciationType
         {
             get { return "Agreement"; }
         }

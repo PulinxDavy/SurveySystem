@@ -13,6 +13,8 @@ namespace SurveySystem.Models
 
         public abstract string Type { get; }
 
+        public abstract string AppreciationType { get; }
+
         public string QuestionString { get; set; }
     }
 }

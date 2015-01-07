@@ -18,5 +18,10 @@ namespace SurveySystem.Models
         {
             get { return "OpenEnd"; }
         }
+
+        public override string AppreciationType
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

@@ -9,29 +9,33 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Question.QuestionString)
+            @Html.DisplayNameFor(model => model.QuestionString)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Question.Type)
+            @Html.DisplayNameFor(model => model.TypeOfQuestion)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Question.QuestionString)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Question.Type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {id = item.Question.Id}) |
-            @Html.ActionLink("Details", "Details", new {id = item.Question.Id}) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Question.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfQuestion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
 </table>
+
+<p>
+    @Html.ActionLink("Create new Question", "Create")
+</p>
 

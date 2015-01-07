@@ -10,29 +10,32 @@ namespace SurveySystem.ViewModels
 {
     public class QuestionVM
     {
-        public Question Question { get; private set; }
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "Question")]
+        public string QuestionString { get; set; }
+
+        [Display(Name = "Possible answers")]
+        public string Answer { get; set; }
+
+        [Required]
+        [Display(Name = "Type of question")]
+        public string TypeOfQuestion { get; set; }
+
+        [Display(Name = "Type of Appreciation")]
+        public string TypeOfAppreciation { get; set; }
 
         [Required]
         [Display(Name = "Type of Question")]
         public List<string> QuestionTypes { get; set; }
 
-        public int QuestionType { get; set; }
-
         [Required]
         [Display(Name = "Type of Appreciation")]
         public List<string> AppreciationTypes { get; set; }
 
-        public int AppreciationType { get; set; }
-
         public QuestionVM()
         {
-            this.FillAppreciationTypes();
-            this.FillQuestionTypes();
-        }
-
-        public QuestionVM(Question question)
-        {
-            this.Question = question;
             this.FillAppreciationTypes();
             this.FillQuestionTypes();
         }
