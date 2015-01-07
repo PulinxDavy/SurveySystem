@@ -12,9 +12,9 @@ namespace SurveySystem.Models
         public Agreement()
         {
             Choices = new List<string>();
-            Choices.Add("Akkoord");
-            Choices.Add("Niet Akkoord");
-            Choices.Add("Geen Mening");
+            Choices.Add("Agree");
+            Choices.Add("Don't agree");
+            Choices.Add("No opinion");
         }
 
         public override List<string> Answers
