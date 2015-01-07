@@ -9,7 +9,7 @@ namespace SurveySystem.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "SurveySystem.Models.ApplicationDbContext";
         }
 
