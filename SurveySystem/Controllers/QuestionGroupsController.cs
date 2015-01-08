@@ -58,15 +58,12 @@ namespace SurveySystem.Controllers
             if (ModelState.IsValid)
             {
                 QuestionGroup questionGroup = new QuestionGroup();
-                questionGroup.Questions = new List<Question>();
-                foreach(string s in questionGroupVM.SelectedQuestions){
-                    int x = Int32.Parse(s);
-                    Console.WriteLine(x);
-                   var q= db.ApplicationQuestions.Find(x);
-
-                    
+         
+                foreach(int i in questionGroupVM.SelectedQuestions){
+           
+                   var q= db.ApplicationQuestions.Find(i);             
                    questionGroup.Questions.Add(q);
-                }
+                 }
                 questionGroup.Title = questionGroupVM.Title;
                 db.QuestionGroups.Add(questionGroup);
                 db.SaveChanges();
