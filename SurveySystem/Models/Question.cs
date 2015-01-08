@@ -17,5 +17,8 @@ namespace SurveySystem.Models
         public abstract string AppreciationType { get; }
 
         public string QuestionString { get; set; }
+
+        public int QuestionGroupRefId { get; set; }
+
     }
 }
