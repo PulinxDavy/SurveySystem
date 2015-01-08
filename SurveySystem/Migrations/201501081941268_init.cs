@@ -3,10 +3,32 @@ namespace SurveySystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Questions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        QuestionString = c.String(),
+                        QuestionGroupRefId = c.Int(nullable: false),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroupRefId, cascadeDelete: true)
+                .Index(t => t.QuestionGroupRefId);
+            
+            CreateTable(
+                "dbo.QuestionGroups",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
@@ -25,7 +47,6 @@ namespace SurveySystem.Migrations
                         UserName = c.String(nullable: false, maxLength: 256),
                         FirstName = c.String(),
                         LastName = c.String(),
-                        Telephone = c.String(),
                         Cellphone = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
@@ -88,17 +109,21 @@ namespace SurveySystem.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Questions", "QuestionGroupRefId", "dbo.QuestionGroups");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Questions", new[] { "QuestionGroupRefId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.QuestionGroups");
+            DropTable("dbo.Questions");
         }
     }
 }
