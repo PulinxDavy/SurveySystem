@@ -12,6 +12,26 @@ namespace SurveySystem.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Answer = c.String(),
+                        QuestionString = c.String(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.QuestionGroups",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Questions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
                         QuestionString = c.String(),
                         QuestionGroupRefId = c.Int(nullable: false),
                         Discriminator = c.String(nullable: false, maxLength: 128),
@@ -100,6 +120,19 @@ namespace SurveySystem.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.QuestionGroupQuestions",
+                c => new
+                    {
+                        QuestionGroup_Id = c.Int(nullable: false),
+                        Question_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.QuestionGroup_Id, t.Question_Id })
+                .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroup_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Questions", t => t.Question_Id, cascadeDelete: true)
+                .Index(t => t.QuestionGroup_Id)
+                .Index(t => t.Question_Id);
             
         }
         

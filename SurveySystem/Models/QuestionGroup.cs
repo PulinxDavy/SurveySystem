@@ -12,5 +12,10 @@ namespace SurveySystem.Models
         public string Title { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }
+
+        public QuestionGroup()
+        {
+            this.Questions = new HashSet<Question>();
+        }
     }
 }

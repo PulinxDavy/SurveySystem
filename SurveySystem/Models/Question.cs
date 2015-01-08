@@ -10,7 +10,7 @@ namespace SurveySystem.Models
     {
         public int Id { get; set; }
 
-        public abstract List<string> Answer { get; }
+        public string Answer { get; set; }
 
         public abstract string Type { get; }
 
@@ -18,7 +18,11 @@ namespace SurveySystem.Models
 
         public string QuestionString { get; set; }
 
-        public int QuestionGroupRefId { get; set; }
+        public virtual ICollection<QuestionGroup> QuestionGroups { get; set; }
 
+        public Question()
+        {
+            this.QuestionGroups = new HashSet<QuestionGroup>();
+        }
     }
 }

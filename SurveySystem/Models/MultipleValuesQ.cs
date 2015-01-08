@@ -7,13 +7,6 @@ namespace SurveySystem.Models
 {
     public class MultipleValuesQ : Question
     {
-        public List<string> Answers { get; set; }
-
-        public override List<string> Answer
-        {
-            get { return Answers; }
-        }
-
         public override string Type
         {
             get { return "MultipleValues"; }
@@ -21,7 +14,7 @@ namespace SurveySystem.Models
 
         public override string AppreciationType
         {
-            get { throw new NotImplementedException(); }
+            get { return "/"; }
         }
     }
 }
