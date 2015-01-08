@@ -9,12 +9,19 @@ namespace SurveySystem.Models
     {
         public int Id { get; set; }
 
-        public abstract List<string> Answer { get; }
+        public string Answer { get; set; }
 
         public abstract string Type { get; }
 
         public abstract string AppreciationType { get; }
 
         public string QuestionString { get; set; }
+
+        public virtual ICollection<QuestionGroup> QuestionGroups { get; set; }
+
+        public Question()
+        {
+            this.QuestionGroups = new HashSet<QuestionGroup>();
+        }
     }
 }

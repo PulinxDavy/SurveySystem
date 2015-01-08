@@ -3,10 +3,30 @@ namespace SurveySystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Questions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Answer = c.String(),
+                        QuestionString = c.String(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.QuestionGroups",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.AspNetUsers",
                 c => new
@@ -25,7 +45,6 @@ namespace SurveySystem.Migrations
                         UserName = c.String(nullable: false, maxLength: 256),
                         FirstName = c.String(),
                         LastName = c.String(),
-                        Telephone = c.String(),
                         Cellphone = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
@@ -80,6 +99,19 @@ namespace SurveySystem.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "dbo.QuestionGroupQuestions",
+                c => new
+                    {
+                        QuestionGroup_Id = c.Int(nullable: false),
+                        Question_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.QuestionGroup_Id, t.Question_Id })
+                .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroup_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Questions", t => t.Question_Id, cascadeDelete: true)
+                .Index(t => t.QuestionGroup_Id)
+                .Index(t => t.Question_Id);
+            
         }
         
         public override void Down()
@@ -88,17 +120,24 @@ namespace SurveySystem.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.QuestionGroupQuestions", "Question_Id", "dbo.Questions");
+            DropForeignKey("dbo.QuestionGroupQuestions", "QuestionGroup_Id", "dbo.QuestionGroups");
+            DropIndex("dbo.QuestionGroupQuestions", new[] { "Question_Id" });
+            DropIndex("dbo.QuestionGroupQuestions", new[] { "QuestionGroup_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropTable("dbo.QuestionGroupQuestions");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.QuestionGroups");
+            DropTable("dbo.Questions");
         }
     }
 }

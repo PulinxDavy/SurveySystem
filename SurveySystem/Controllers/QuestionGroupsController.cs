@@ -59,7 +59,7 @@ namespace SurveySystem.Controllers
                 foreach(string s in questionGroupVM.SelectedQuestions){
                     int x = Int32.Parse(s);
                    Question q= db.ApplicationQuestions.Find(x);
-                   questionGroup.Questions.Add(q);
+                   //questionGroup.Questions.Add(q);
                 }
                 questionGroup.Title = questionGroupVM.Title;
                 db.QuestionGroups.Add(questionGroup);

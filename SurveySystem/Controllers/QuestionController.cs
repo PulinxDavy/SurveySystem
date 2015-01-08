@@ -62,18 +62,28 @@ namespace SurveySystem.Controllers
                 if (questionVm.TypeOfAppreciation == "Very bad - Very good")
                 {
                     q = new Appreciation();
+                    questionVm.Answer = "Very bad;Bad;Good;Very good";
                 }
                 else if (questionVm.TypeOfAppreciation == "Agreement")
                 {
                     q = new Agreement();
+                    questionVm.Answer = "Agree;Don't agree;No opinion";
                 }
                 else if (questionVm.TypeOfAppreciation == "Numerical")
                 {
                     q = new Numerical();
+                    int counter = 10;
+                    string createString = null;
+                    for (int i = 1; i <= counter; i++)
+                    {
+                        createString = createString + i.ToString() + ";";
+                    }
+                    questionVm.Answer = createString;
                 }
                 else if (questionVm.TypeOfQuestion == "MultipleValues")
                 {
-                    q = new MultipleValuesQ();
+                    MultipleValuesQ mQ = new MultipleValuesQ();
+                    q = mQ;
                 }
                 else if (questionVm.TypeOfQuestion == "OpenEnd")
                 {
@@ -81,11 +91,13 @@ namespace SurveySystem.Controllers
                 }
                 else if (questionVm.TypeOfQuestion == "PreDefined")
                 {
-                    q = new PreDefinedQ();
+                    PreDefinedQ pQ = new PreDefinedQ();
+                    q = pQ;
                 }
                 else if (questionVm.TypeOfQuestion == "Selection")
                 {
-                    q = new SelectionQ();
+                    SelectionQ sQ = new SelectionQ();
+                    q = sQ;
                 }
                 else
                 {
@@ -96,8 +108,8 @@ namespace SurveySystem.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 
-                SplitString(questionVm, q);
                 q.QuestionString = questionVm.QuestionString;
+                q.Answer = questionVm.Answer;
 
                 Db.ApplicationQuestions.Add(q);
                 Db.SaveChanges();
@@ -136,36 +148,47 @@ namespace SurveySystem.Controllers
                         if (q.AppreciationType == questionVm.TypeOfAppreciation)
                         {
                             q.QuestionString = questionVm.QuestionString;
-                            SplitString(questionVm, q);
                         }
                         else if (questionVm.TypeOfAppreciation == "Very bad - Very good")
                         {
                             Db.ApplicationQuestions.Remove(q);
                             Db.SaveChanges();
-                            q = new Appreciation();
-                            q.QuestionString = questionVm.QuestionString;
+                            Appreciation aQ = new Appreciation();
+                            aQ.QuestionString = questionVm.QuestionString;
+                            aQ.Answer = "Very bad;Bad;Good;Very Good";
+                            q = aQ;
                         }
                         else if (questionVm.TypeOfAppreciation == "Agreement")
                         {
                             Db.ApplicationQuestions.Remove(q);
                             Db.SaveChanges();
-                            q = new Agreement();
-                            q.QuestionString = questionVm.QuestionString;
+                            Agreement aQ = new Agreement();
+                            aQ.QuestionString = questionVm.QuestionString;
+                            aQ.Answer = "Agree;Don't agree;No opinion";
+                            q = aQ;
                         }
                         else if (questionVm.TypeOfAppreciation == "Numerical")
                         {
                             Db.ApplicationQuestions.Remove(q);
                             Db.SaveChanges();
-                            q = new Numerical();
-                            q.QuestionString = questionVm.QuestionString;
+                            Numerical nQ = new Numerical();
+                            nQ.QuestionString = questionVm.QuestionString;
+                            int counter = 10;
+                            string createString = null;
+                            for (int i = 1; i < counter; i++)
+                            {
+                                createString = createString + i.ToString() + ";";
+                            }
+                            nQ.Answer = createString;
+                            q = nQ;
                         }
                     } else
                     {
                         q.QuestionString = questionVm.QuestionString;
-                        SplitString(questionVm, q);
+                        q.Answer = questionVm.Answer;
                     }
                 }
-                else if (questionVm.TypeOfAppreciation == "Very bad - Very good")
+                else if (questionVm.TypeOfAppreciation == "Very bad - Very good" && questionVm.TypeOfQuestion == "Appreciation")
                 {
                     Db.ApplicationQuestions.Remove(q);
                     Db.SaveChanges();
@@ -173,14 +196,14 @@ namespace SurveySystem.Controllers
                     q.QuestionString = questionVm.QuestionString;
 
                 }
-                else if (questionVm.TypeOfAppreciation == "Agreement")
+                else if (questionVm.TypeOfAppreciation == "Agreement" && questionVm.TypeOfQuestion == "Appreciation")
                 {
                     Db.ApplicationQuestions.Remove(q);
                     Db.SaveChanges();
                     q = new Agreement();
                     q.QuestionString = questionVm.QuestionString;
                 }
-                else if (questionVm.TypeOfAppreciation == "Numerical")
+                else if (questionVm.TypeOfAppreciation == "Numerical" && questionVm.TypeOfQuestion == "Appreciation")
                 {
                     Db.ApplicationQuestions.Remove(q);
                     Db.SaveChanges();
@@ -193,7 +216,7 @@ namespace SurveySystem.Controllers
                     Db.SaveChanges();
                     q = new MultipleValuesQ();
                     q.QuestionString = questionVm.QuestionString;
-                    SplitString(questionVm, q);
+                    q.Answer = questionVm.Answer;
                 }
                 else if (questionVm.TypeOfQuestion == "OpenEnd")
                 {
@@ -208,7 +231,7 @@ namespace SurveySystem.Controllers
                     Db.SaveChanges();
                     q = new PreDefinedQ();
                     q.QuestionString = questionVm.QuestionString;
-                    SplitString(questionVm, q);
+                    q.Answer = questionVm.Answer;
                 }
                 else if (questionVm.TypeOfQuestion == "Selection")
                 {
@@ -216,7 +239,7 @@ namespace SurveySystem.Controllers
                     Db.SaveChanges();
                     q = new SelectionQ();
                     q.QuestionString = questionVm.QuestionString;
-                    SplitString(questionVm, q);
+                    q.Answer = questionVm.Answer;
                 }
 
                 if (q.Id == questionVm.Id)
@@ -264,35 +287,6 @@ namespace SurveySystem.Controllers
             return RedirectToAction("Index");
         }
 
-        public void SplitString(QuestionVM question, Question q)
-        {
-            if (question.Answer != null)
-            {
-                char delimiterChar = ';';
-
-                string[] splitString = question.Answer.Split(delimiterChar);
-
-                foreach (string a in splitString)
-                {
-                    q.Answer.Add(a);
-                }
-            }
-        }
-
-        public void CreateString(Question question, QuestionVM q)
-        {
-            if (question.Answer != null)
-            {
-                string createString = null;
-                foreach (string str in question.Answer)
-                {
-                    createString = createString + str + ";";
-                }
-
-                q.Answer = createString;
-            }
-        }
-
         public QuestionVM CreateQuestionVM(Question q)
         {
             QuestionVM question = new QuestionVM();
@@ -300,7 +294,7 @@ namespace SurveySystem.Controllers
             question.QuestionString = q.QuestionString;
             question.TypeOfQuestion = q.Type;
             question.TypeOfAppreciation = q.AppreciationType;
-            CreateString(q, question);
+            question.Answer = q.Answer;
 
             return question;
         }

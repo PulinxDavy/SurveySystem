@@ -168,25 +168,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201412311428470_InitialCreate.cs" />
-    <Compile Include="Migrations\201412311428470_InitialCreate.Designer.cs">
-      <DependentUpon>201412311428470_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201412311437247_RemodeldUser.cs" />
-    <Compile Include="Migrations\201412311437247_RemodeldUser.Designer.cs">
-      <DependentUpon>201412311437247_RemodeldUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201412311459461_RemodeldAccountViewModel.cs" />
-    <Compile Include="Migrations\201412311459461_RemodeldAccountViewModel.Designer.cs">
-      <DependentUpon>201412311459461_RemodeldAccountViewModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501071252030_ChangesInAppreciationQuestions.cs" />
-    <Compile Include="Migrations\201501071252030_ChangesInAppreciationQuestions.Designer.cs">
-      <DependentUpon>201501071252030_ChangesInAppreciationQuestions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501071417139_ChangesInQuestions.cs" />
-    <Compile Include="Migrations\201501071417139_ChangesInQuestions.Designer.cs">
-      <DependentUpon>201501071417139_ChangesInQuestions.cs</DependentUpon>
+    <Compile Include="Migrations\201501082048239_init.cs" />
+    <Compile Include="Migrations\201501082048239_init.Designer.cs">
+      <DependentUpon>201501082048239_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -295,20 +279,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201412311428470_InitialCreate.resx">
-      <DependentUpon>201412311428470_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201412311437247_RemodeldUser.resx">
-      <DependentUpon>201412311437247_RemodeldUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201412311459461_RemodeldAccountViewModel.resx">
-      <DependentUpon>201412311459461_RemodeldAccountViewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501071252030_ChangesInAppreciationQuestions.resx">
-      <DependentUpon>201501071252030_ChangesInAppreciationQuestions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501071417139_ChangesInQuestions.resx">
-      <DependentUpon>201501071417139_ChangesInQuestions.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501082048239_init.resx">
+      <DependentUpon>201501082048239_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
