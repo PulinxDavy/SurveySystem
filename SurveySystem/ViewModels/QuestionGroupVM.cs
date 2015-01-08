@@ -10,12 +10,14 @@ namespace SurveySystem.ViewModels
 {
     public class QuestionGroupVM
     {
+        [Required]
         public string Title { get; set; }
 
-        [Display(Name = "Questions")]
+     //   [Display(Name = "Questions")]
         public int SelectedQuestionId { get; set; }
-        public Question Question { get; set; }
+      //  public Question Question { get; set; }
         public IEnumerable<string> SelectedQuestions { get; set; }
+         [Display(Name = "Questions")]
         public IEnumerable<SelectListItem> Questions
         {
             get {

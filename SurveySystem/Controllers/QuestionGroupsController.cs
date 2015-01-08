@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SurveySystem.Models;
 using SurveySystem.ViewModels;
+using System.Diagnostics;
 
 namespace SurveySystem.Controllers
 {
@@ -40,8 +41,9 @@ namespace SurveySystem.Controllers
         public ActionResult Create()
         {
             QuestionGroupVM questionGroupVM = new QuestionGroupVM();
+       //     questionGroupVM.AllQuestions = new List<Question>();
             questionGroupVM.AllQuestions = db.ApplicationQuestions.ToList();
-            questionGroupVM.AllQuestions = new List<Question>();
+           
            
             return View(questionGroupVM);
         }
@@ -51,15 +53,19 @@ namespace SurveySystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title")] QuestionGroupVM questionGroupVM)
+        public ActionResult Create(QuestionGroupVM questionGroupVM)
         {
             if (ModelState.IsValid)
             {
                 QuestionGroup questionGroup = new QuestionGroup();
+                questionGroup.Questions = new List<Question>();
                 foreach(string s in questionGroupVM.SelectedQuestions){
                     int x = Int32.Parse(s);
-                   Question q= db.ApplicationQuestions.Find(x);
-                   //questionGroup.Questions.Add(q);
+                    Console.WriteLine(x);
+                   var q= db.ApplicationQuestions.Find(x);
+
+                    
+                   questionGroup.Questions.Add(q);
                 }
                 questionGroup.Title = questionGroupVM.Title;
                 db.QuestionGroups.Add(questionGroup);

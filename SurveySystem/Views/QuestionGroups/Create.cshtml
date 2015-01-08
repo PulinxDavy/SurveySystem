@@ -24,9 +24,9 @@
         </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.SelectedQuestionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Questions, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.Question.Id, Model.Questions)
+                @Html.ListBoxFor(model => model.SelectedQuestions, Model.Questions)
                 @Html.ValidationMessageFor(model => model.Questions, "", new { @class = "text-danger" })
             </div>
         </div>
