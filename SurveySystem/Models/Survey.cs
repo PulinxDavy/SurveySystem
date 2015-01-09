@@ -21,8 +21,14 @@ namespace SurveySystem.Models
 
         public string Comment { get; set; }
 
-        public List<QuestionGroup> Groups { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
 
-        public List<Question> Questions { get; set; }
+        public virtual ICollection<QuestionGroup> QuestionGroups { get; set; }
+
+        public Survey()
+        {
+            this.QuestionGroups = new HashSet<QuestionGroup>();
+            this.Questions = new HashSet<Question>();
+        }
     }
 }

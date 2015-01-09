@@ -3,7 +3,7 @@ namespace SurveySystem.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -24,6 +24,20 @@ namespace SurveySystem.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Surveys",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        Description = c.String(),
+                        Active = c.Boolean(nullable: false),
+                        ActiveSince = c.DateTime(nullable: false),
+                        Anonymous = c.Boolean(nullable: false),
+                        Comment = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -112,6 +126,32 @@ namespace SurveySystem.Migrations
                 .Index(t => t.QuestionGroup_Id)
                 .Index(t => t.Question_Id);
             
+            CreateTable(
+                "dbo.SurveyQuestionGroups",
+                c => new
+                    {
+                        Survey_Id = c.Int(nullable: false),
+                        QuestionGroup_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Survey_Id, t.QuestionGroup_Id })
+                .ForeignKey("dbo.Surveys", t => t.Survey_Id, cascadeDelete: true)
+                .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroup_Id, cascadeDelete: true)
+                .Index(t => t.Survey_Id)
+                .Index(t => t.QuestionGroup_Id);
+            
+            CreateTable(
+                "dbo.SurveyQuestions",
+                c => new
+                    {
+                        Survey_Id = c.Int(nullable: false),
+                        Question_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Survey_Id, t.Question_Id })
+                .ForeignKey("dbo.Surveys", t => t.Survey_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Questions", t => t.Question_Id, cascadeDelete: true)
+                .Index(t => t.Survey_Id)
+                .Index(t => t.Question_Id);
+            
         }
         
         public override void Down()
@@ -120,8 +160,16 @@ namespace SurveySystem.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.SurveyQuestions", "Question_Id", "dbo.Questions");
+            DropForeignKey("dbo.SurveyQuestions", "Survey_Id", "dbo.Surveys");
+            DropForeignKey("dbo.SurveyQuestionGroups", "QuestionGroup_Id", "dbo.QuestionGroups");
+            DropForeignKey("dbo.SurveyQuestionGroups", "Survey_Id", "dbo.Surveys");
             DropForeignKey("dbo.QuestionGroupQuestions", "Question_Id", "dbo.Questions");
             DropForeignKey("dbo.QuestionGroupQuestions", "QuestionGroup_Id", "dbo.QuestionGroups");
+            DropIndex("dbo.SurveyQuestions", new[] { "Question_Id" });
+            DropIndex("dbo.SurveyQuestions", new[] { "Survey_Id" });
+            DropIndex("dbo.SurveyQuestionGroups", new[] { "QuestionGroup_Id" });
+            DropIndex("dbo.SurveyQuestionGroups", new[] { "Survey_Id" });
             DropIndex("dbo.QuestionGroupQuestions", new[] { "Question_Id" });
             DropIndex("dbo.QuestionGroupQuestions", new[] { "QuestionGroup_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -130,12 +178,15 @@ namespace SurveySystem.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropTable("dbo.SurveyQuestions");
+            DropTable("dbo.SurveyQuestionGroups");
             DropTable("dbo.QuestionGroupQuestions");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Surveys");
             DropTable("dbo.QuestionGroups");
             DropTable("dbo.Questions");
         }
