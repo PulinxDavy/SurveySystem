@@ -4,11 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using SurveySystem.Models;
+using System.Web.Mvc;
 
 namespace SurveySystem.ViewModels
 {
     public class SurveyVM
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "A Survey Title is required")]
         public string Title { get; set; }
 
@@ -18,9 +21,21 @@ namespace SurveySystem.ViewModels
 
         public string Comment { get; set; }
 
-        public virtual List<QuestionGroup> Groups { get; set; }
+        [Display(Name = "List of existing groups")]
+        public virtual List<QuestionGroup> AllGroups { get; set; }
 
-        public virtual List<Question> Questions { get; set; }
+        [Display(Name = "List of existing questions")]
+        public virtual List<Question> AllQuestions { get; set; }
+
+        [Display(Name = "List of selected groups")]
+        public IEnumerable<SelectListItem> SelectedGroups { get; set; }
+
+        [Display(Name = "List of selected questions")]
+        public IEnumerable<SelectListItem> SelectedQuestions { get; set; }
+
+        public IEnumerable<SelectListItem> Groups { get { return new SelectList(AllGroups, "Id", "Title"); } }
+
+        public IEnumerable<SelectListItem> Questions { get { return new SelectList(AllQuestions, "Id", "QuestionString"); } }
         
     }
 }
