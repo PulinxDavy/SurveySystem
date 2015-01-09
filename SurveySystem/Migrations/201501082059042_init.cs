@@ -28,28 +28,6 @@ namespace SurveySystem.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Questions",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        QuestionString = c.String(),
-                        QuestionGroupRefId = c.Int(nullable: false),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroupRefId, cascadeDelete: true)
-                .Index(t => t.QuestionGroupRefId);
-            
-            CreateTable(
-                "dbo.QuestionGroups",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -142,14 +120,17 @@ namespace SurveySystem.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Questions", "QuestionGroupRefId", "dbo.QuestionGroups");
+            DropForeignKey("dbo.QuestionGroupQuestions", "Question_Id", "dbo.Questions");
+            DropForeignKey("dbo.QuestionGroupQuestions", "QuestionGroup_Id", "dbo.QuestionGroups");
+            DropIndex("dbo.QuestionGroupQuestions", new[] { "Question_Id" });
+            DropIndex("dbo.QuestionGroupQuestions", new[] { "QuestionGroup_Id" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Questions", new[] { "QuestionGroupRefId" });
+            DropTable("dbo.QuestionGroupQuestions");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
