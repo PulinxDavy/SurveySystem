@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "form", id = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedGroups, htmlAttributes: new {@class = "control-label col-md-2"})            
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.SelectedGroups, Model.SelectedGroups, htmlAttributes: new {@class = "form-control", @id = "selectedGroupsList"})
+                @Html.ListBoxFor(model => model.SelectedGroups, Model.SelGroups, htmlAttributes: new {@class = "form-control", @id = "selectedGroupsList"})
                 @Html.ValidationMessageFor(model => model.SelectedGroups, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedQuestions, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.SelectedQuestions, Model.SelectedQuestions, htmlAttributes: new { @class = "form-control", @id = "selectedQuestionsList" })
+                @Html.ListBoxFor(model => model.SelectedQuestions, Model.SelQuestions, htmlAttributes: new { @class = "form-control", @id = "selectedQuestionsList" })
                 @Html.ValidationMessageFor(model => model.SelectedQuestions, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -86,8 +86,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -112,8 +112,24 @@
         var btnQuDwn = document.getElementById("questionDown");
 
         btnGrUp.addEventListener('click', function() {
-            var selected = $("#selectedGroupsList option:selected");
-            $("#allGroupsList").append(selected);
+            var selected = $("#allGroupsList option:selected").sort().clone();
+            $("#selectedGroupsList").append(selected);
+        });
+        btnGrDwn.addEventListener('click', function() {
+            $("#selectedGroupsList option:selected").remove();
+        });
+
+        btnQuUp.addEventListener('click', function() {
+            var selected = $("#allQuestionsList option:selected").sort().clone();
+            $("#selectedQuestionsList").append(selected);
+        });
+        btnQuDwn.addEventListener('click', function() {
+            $("#selectedQuestionsList option:selected").remove();
+        });
+
+        $("#form").submit(function () {
+            $("#selectedGroupsList option").prop("selected", true);
+            $("#selectedQuestionsList option").prop("selected", true);
         });
     </script>
 }

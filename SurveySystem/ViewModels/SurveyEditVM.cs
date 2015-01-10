@@ -3,23 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using SurveySystem.Models;
 using System.Web.Mvc;
+using SurveySystem.Models;
 
 namespace SurveySystem.ViewModels
 {
-    public class SurveyVM
+    public class SurveyEditVM
     {
-        public int Id { get; set; }
-
-        [Required(ErrorMessage = "A Survey Title is required")]
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public bool Active { get; set; }
-
-        public string Comment { get; set; }
+        public Survey Survey { get; set; }
 
         [Display(Name = "List of existing groups")]
         public virtual List<QuestionGroup> AllGroups { get; set; }
@@ -37,11 +28,11 @@ namespace SurveySystem.ViewModels
 
         public IEnumerable<SelectListItem> Questions { get { return new SelectList(AllQuestions, "Id", "QuestionString"); } }
 
-        public IEnumerable<SelectListItem> SelGroups { get { return new SelectList(new List<QuestionGroup>(), "Id", "Title"); } }
+        public IEnumerable<SelectListItem> SelGroups { get { return new SelectList(Survey.QuestionGroups, "Id", "Title"); } }
 
-        public IEnumerable<SelectListItem> SelQuestions { get { return new SelectList(new List<Question>(), "Id", "Title"); } }
+        public IEnumerable<SelectListItem> SelQuestions { get { return new SelectList(Survey.Questions, "Id", "QuestionString"); } }
 
-        public SurveyVM()
+        public SurveyEditVM()
         {
             this.AllGroups = new List<QuestionGroup>();
             this.AllQuestions = new List<Question>();
