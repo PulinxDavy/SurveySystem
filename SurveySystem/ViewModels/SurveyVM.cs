@@ -36,6 +36,12 @@ namespace SurveySystem.ViewModels
         public IEnumerable<SelectListItem> Groups { get { return new SelectList(AllGroups, "Id", "Title"); } }
 
         public IEnumerable<SelectListItem> Questions { get { return new SelectList(AllQuestions, "Id", "QuestionString"); } }
+
+        public SurveyVM()
+        {
+            this.SelectedGroups = new SelectList(new List<SelectListItem>());
+            this.SelectedQuestions = new SelectList(new List<SelectListItem>());
+        }
         
     }
 }

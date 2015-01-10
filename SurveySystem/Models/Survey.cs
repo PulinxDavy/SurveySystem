@@ -27,8 +27,8 @@ namespace SurveySystem.Models
 
         public Survey()
         {
-            this.QuestionGroups = new HashSet<QuestionGroup>();
-            this.Questions = new HashSet<Question>();
+            this.QuestionGroups = new List<QuestionGroup>();
+            this.Questions = new List<Question>();
         }
     }
 }
