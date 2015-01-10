@@ -1,4 +1,4 @@
-﻿@model SurveySystem.Models.QuestionGroup
+﻿@model SurveySystem.ViewModels.EditQuestionGroupVM
 
 @{
     ViewBag.Title = "Edit";
@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "form", id = "form" }))
 {
     @Html.AntiForgeryToken()
     
@@ -15,21 +15,49 @@
         <h4>QuestionGroup</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.SelectedQuestionGroup.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedQuestionGroup.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SelectedQuestionGroup.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedQuestionGroup.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedQuestionGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.SelectedQuestions, Model.QuestionGroupQuestions, new { id = "listBoxSelected", SIZE = 5 })
+                @Html.ValidationMessageFor(model => model.QuestionGroupQuestions, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="col-md-10">
+                <input type="button" name="add"
+                       id="add" value="Add Question" />
+
+                <input type="button" name="remove"
+                       id="remove" value="Remove Question" />
+                </div>
             </div>
-        </div>
-    </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Questions, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.ListBoxFor(model => model.SelectedNewQuestions, Model.Questions,new { id = "listBoxAvailable", SIZE = 5})
+                        @Html.ValidationMessageFor(model => model.Questions, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" id="saveQGroup" />
+                    </div>
+                </div>
+            </div>
 }
 
 <div>
@@ -38,4 +66,27 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('#add').on('click', function () {
+                    var options = $('#listBoxAvailable option:selected').sort().clone();
+
+                    $('#listBoxSelected').append(options);
+                });
+
+                $('#remove').on('click', function () {
+                    $('#listBoxSelected option:selected').remove();
+                });
+            });
+
+            $('#form').submit(function () {
+                // modifies the 'selected' options on the list 
+                // before finally being submitted by the browser
+                $('#listBoxSelected option').prop('selected', true);
+            });
+        });
+       
+    </script>  
 }

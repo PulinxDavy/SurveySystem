@@ -80,12 +80,15 @@ namespace SurveySystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            EditQuestionGroupVM editQuestionGroup = new EditQuestionGroupVM();
             QuestionGroup questionGroup = db.QuestionGroups.Find(id);
+            editQuestionGroup.AllQuestions = db.ApplicationQuestions.ToList();
+            editQuestionGroup.SelectedQuestionGroup = questionGroup;
             if (questionGroup == null)
             {
                 return HttpNotFound();
             }
-            return View(questionGroup);
+            return View(editQuestionGroup);
         }
 
         // POST: QuestionGroups/Edit/5
@@ -93,15 +96,26 @@ namespace SurveySystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title")] QuestionGroup questionGroup)
+        public ActionResult Edit([Bind(Include = "SelectedQuestionGroup, SelectedQuestions")] EditQuestionGroupVM editQuestionGroup)
         {
             if (ModelState.IsValid)
             {
+                var questionGroup = db.QuestionGroups.Find(editQuestionGroup.SelectedQuestionGroup.Id);
+                questionGroup.Title = editQuestionGroup.SelectedQuestionGroup.Title;
+                questionGroup.Questions.Clear();
+
+                foreach (int i in editQuestionGroup.SelectedQuestions)
+                {
+
+                    var q = db.ApplicationQuestions.Find(i);
+                    questionGroup.Questions.Add(q);
+                }
                 db.Entry(questionGroup).State = EntityState.Modified;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(questionGroup);
+            return View(editQuestionGroup);
         }
 
         // GET: QuestionGroups/Delete/5
