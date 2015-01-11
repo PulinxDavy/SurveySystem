@@ -1,0 +1,29 @@
+﻿@model IEnumerable<SurveySystem.Models.Survey>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Choose a survey to start</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                All active surveys
+            </th>
+        </tr>
+
+        @foreach (var survey in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => survey.Title)
+                </td>
+                <td>
+                    @Html.ActionLink("Start", "Start", new { survey.Id }) |
+
+                </td>
+            </tr>
+        }
+
+    </table>
