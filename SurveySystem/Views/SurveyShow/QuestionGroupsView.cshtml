@@ -6,11 +6,49 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    int counter = 0;
 foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
 {
-    <p>@Html.DisplayFor(modelItem => item.QuestionString)</p>
-    <p>@Html.EditorFor(modelItem=>item.Answer)</p>
+    counter++;
+    string name = "answer" + counter;
+    <div class="form-group">
+        @Html.DisplayFor(modelItem => item.QuestionString)
+        <div class="col-md-12">
+            @if (item.Type == "Appreciation" || item.Type == "Selection")
+            {
+                List<string> list = new List<string>();
+                char delimiter = Convert.ToChar(";");
+                string[] splitStrings = item.Answer.Split(delimiter);
+                foreach (var s in splitStrings)
+                {
+                    list.Add(s);
+                }
+                foreach (var answer in list)
+                {
+                    @Html.RadioButton(name, answer)
+                    @Html.DisplayFor(modelItem => answer, new { htmlAttributes = new { @class = "form-control" } })
+                }
+            }
+            else if (item.Type == "MultipleValues" || item.Type == "PreDefined")
+            {
+                Dictionary<string, bool> list = new Dictionary<string, bool>();
+                foreach (var answer in item.PossibleAnswers)
+                {
+                    bool b = false;
+                    list.Add(answer, b);
+                }
+                foreach (KeyValuePair<string, bool> boolPair in list)
+                {
+                    @Html.CheckBoxFor(modelItem => boolPair.Value)
+                    @Html.DisplayFor(modelItem => boolPair.Key)
+                }
+            }
+            else if (item.Type == "OpenEnd")
+            {
+                @Html.TextAreaFor(modelItem => item.Answer)
+            }
+        </div>
+    </div>
 }
 
 <div class="form-group">
