@@ -37,7 +37,7 @@ namespace SurveySystem.Controllers
         }
 
 
-       public ActionResult Next(SurveyShowVM surveyShowVM)
+       public ActionResult QuestionGroupsView(SurveyShowVM surveyShowVM)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace SurveySystem.Controllers
 
                         surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup = surveyShowVM.QuestionGroupShowVM.QuestionGroups.ElementAt(index);
 
-                        return View(surveyShowVM.QuestionGroupShowVM);
+                        return PartialView(surveyShowVM.QuestionGroupShowVM);
                     }
                     }else
                 {
@@ -85,14 +85,14 @@ namespace SurveySystem.Controllers
 
                         surveyShowVM.QuestionShowVM.CurrentQuestion =surveyShowVM.QuestionShowVM.Questions.ElementAt(index);
 
-                        return View(surveyShowVM.QuestionShowVM);
+                        return PartialView(surveyShowVM.QuestionShowVM);
                     }else{
                         return RedirectToAction("Index");
                     }
                 }
                 
                 }
-           return View(surveyShowVM);
+           return PartialView(surveyShowVM);
             }
 
         }
