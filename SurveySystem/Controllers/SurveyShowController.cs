@@ -30,21 +30,71 @@ namespace SurveySystem.Controllers
             SurveyShowVM surveyShowVM = new SurveyShowVM();
             QuestionGroupShowVM questionGroupShowVM = new QuestionGroupShowVM();
             //Just for testing. Logic needed to keep track of which QuestionGroup currently needs rendering
-            questionGroupShowVM.CurrentQuestionGroup = survey.QuestionGroups.First();
+           // questionGroupShowVM.CurrentQuestionGroup = survey.QuestionGroups.First();
             surveyShowVM.QuestionGroupShowVM = questionGroupShowVM;
             surveyShowVM.Survey = survey;
             return View(surveyShowVM);
         }
 
 
-    /*   public ActionResult Next(SurveyShowVM surveyShowVM)
+       public ActionResult Next(SurveyShowVM surveyShowVM)
         {
             if (ModelState.IsValid)
             {
-                surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup = surveyShowVM.Survey.QuestionGroups.Last();
+                int index = surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroupIndex;
+                if ( index < surveyShowVM.QuestionGroupShowVM.QuestionGroups.Count())
+                {
+                    index++;
+                    surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroupIndex = index;
+
+                    foreach (Question q in surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
+                    {
+                        SurveyResult surveyResult = new SurveyResult();
+                        surveyResult.QuestionId = q.Id;
+                        surveyResult.SurveyId = surveyShowVM.Survey.Id;
+                        Answers answer = new Answers();
+                        answer.Answer = q.Answer;
+
+                        surveyResult.Answer = answer;
+
+                        db.SurveyResults.Add(surveyResult);
+                        db.SaveChanges();
+
+
+                        surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup = surveyShowVM.QuestionGroupShowVM.QuestionGroups.ElementAt(index);
+
+                        return View(surveyShowVM);
+                    }
+                    }else
+                {
+                    index = surveyShowVM.QuestionShowVM.CurrentQuestionIndex;
+
+                    if(index < surveyShowVM.QuestionShowVM.Questions.Count()){
+                        index++;
+                        Question q = surveyShowVM.QuestionShowVM.CurrentQuestion;
+                         SurveyResult surveyResult = new SurveyResult();
+                        surveyResult.QuestionId = q.Id;
+                        surveyResult.SurveyId = surveyShowVM.Survey.Id;
+                        Answers answer = new Answers();
+                        answer.Answer = q.Answer;
+
+                        surveyResult.Answer = answer;
+
+                        db.SurveyResults.Add(surveyResult);
+                        db.SaveChanges();
+
+                        surveyShowVM.QuestionShowVM.CurrentQuestion =surveyShowVM.QuestionShowVM.Questions.ElementAt(index);
+
+                        return View(surveyShowVM);
+                    }else{
+                        return RedirectToAction("Index");
+                    }
+                }
+                
+                }
+           return View(surveyShowVM);
             }
 
-            return View(surveyShowVM);
-        }*/
+        }
     }
 }

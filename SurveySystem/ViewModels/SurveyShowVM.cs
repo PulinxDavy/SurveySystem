@@ -13,6 +13,7 @@ namespace SurveySystem.ViewModels
         public Survey Survey { get; set; }
 
         public QuestionGroupShowVM QuestionGroupShowVM { get; set; }
+        public QuestionShowVM QuestionShowVM { get; set; }
 
     }
 }

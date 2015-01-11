@@ -6,11 +6,11 @@ using System.Web;
 
 namespace SurveySystem.ViewModels
 {
-    public class QuestionGroupShowVM
+    public class QuestionShowVM
     {
-        public List<QuestionGroup> QuestionGroups { get; set; }
-        public QuestionGroup CurrentQuestionGroup { get; set; }
+        public List<Question> Questions { get; set; }
         public List<SurveyResult> SurveyResults { get; set; }
-        public int CurrentQuestionGroupIndex { get; set; }
+        public Question CurrentQuestion { get; set; }
+        public int CurrentQuestionIndex { get; set; }
     }
 }
