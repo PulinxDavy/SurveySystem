@@ -9,7 +9,7 @@ namespace SurveySystem.Models
     {
         public int Id { get; set; }
 
-        public List<string> Answers { get; set; }
+        public Answers Answer { get; set; }
 
         public int SurveyId { get; set; }
 

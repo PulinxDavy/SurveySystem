@@ -1,0 +1,49 @@
+﻿@using System.Runtime.InteropServices
+@using SurveySystem.Models;
+@model SurveySystem.ViewModels.SurveyShowVM
+
+@{
+    ViewBag.Title = "Survey";
+}
+
+<h2>Survey</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Survey: @Html.DisplayFor(model => model.Survey.Title)</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @foreach (QuestionGroup item in Model.Survey.QuestionGroups)
+        {
+            <h5>@Html.DisplayFor(modelItem => item.Title)</h5>
+
+            foreach (Question q in item.Questions)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(modelItemQ => q.QuestionString, htmlAttributes: new { @class = "label label-primary col-md-12" })
+                    <div>
+                        @if (q.Type == "Appreciation" || q.Type == "Selection")
+                        {
+                            foreach (var s in q.PossibleAnswers)
+                            {
+                                Html.RadioButtonFor(modelItemQs => s, s);
+                                Html.LabelFor(modelItemQs => s);
+                            }
+                        }
+                        else if (q.Type == "MultipleValues")
+                        {
+                            foreach (var s in q.PossibleAnswers)
+                            {
+                                Html.CheckBoxFor(modelItemQs => s, s, );
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
