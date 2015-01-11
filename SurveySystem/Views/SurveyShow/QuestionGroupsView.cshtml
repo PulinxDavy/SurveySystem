@@ -10,6 +10,7 @@
 foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
 {
     <p>@Html.DisplayFor(modelItem => item.QuestionString)</p>
+    <p>@Html.EditorFor(modelItem=>item.Answer)</p>
 }
 
 <div class="form-group">

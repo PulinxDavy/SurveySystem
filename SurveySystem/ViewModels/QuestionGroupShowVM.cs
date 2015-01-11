@@ -10,6 +10,6 @@ namespace SurveySystem.ViewModels
     {
         public List<QuestionGroup> QuestionGroups { get; set; }
         public QuestionGroup CurrentQuestionGroup { get; set; }
-        
+        public List<SurveyResult> SurveyResults { get; set; }
     }
 }
