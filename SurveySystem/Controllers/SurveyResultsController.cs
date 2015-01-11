@@ -154,22 +154,19 @@ namespace SurveySystem.Controllers
             List<SurveyResult> surveyResults = db.SurveyResults.Where(res =>res.SurveyId == id).ToList();
             List<Question> questions = new List<Question>();
             //All answers for all questions of the survey --> do counts on this
-            var answers = new List<Tuple<int,string>>();
-            var countAnswers = new HashSet<Tuple<int, string, int>>();
+            var answers = new List<Tuple<int,Answers>>();
+            var countAnswers = new HashSet<Tuple<int, Answers, int>>();
 
             //We need a list of unique question Ids from the surveyResults
             HashSet<int> uniqueQuestionIds = new HashSet<int>();
 
             //get the questionIds and answers
-            /*foreach (SurveyResult s in surveyResults)
+            foreach (SurveyResult s in surveyResults)
             {
-                foreach (string answer in s.Answers)
-                {
-                    answers.Add(Tuple.Create(s.QuestionId, answer));
-                }
-                   
+
+                    answers.Add(Tuple.Create(s.QuestionId, s.Answer));             
                     uniqueQuestionIds.Add(s.QuestionId);   
-            }*/
+            }
 
             foreach (var a in answers)
             {

@@ -13,7 +13,7 @@ namespace SurveySystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201501111527505_init"; }
+            get { return "201501111538199_init"; }
         }
         
         string IMigrationMetadata.Source
