@@ -38,6 +38,9 @@ namespace SurveySystem.Controllers
 
             Survey survey = new Survey();
             survey.Title = "test";
+            Appreciation app = new Appreciation();
+            app.QuestionString = "test Qstring";
+            survey.Questions.Add(app);
             surveys.Add(survey);
             surveyResultVM.Surveys = surveys;
             
@@ -147,16 +150,45 @@ namespace SurveySystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SurveyResultStatisticsVM surveyResStat = new SurveyResultStatisticsVM();
+            //List of all surveyResults of a given survey
             List<SurveyResult> surveyResults = db.SurveyResults.Where(res =>res.SurveyId == id).ToList();
             List<Question> questions = new List<Question>();
+            //All answers for all questions of the survey --> do counts on this
+            var answers = new List<Tuple<int,string>>();
+            var countAnswers = new HashSet<Tuple<int, string, int>>();
 
+            //We need a list of unique question Ids from the surveyResults
+            HashSet<int> uniqueQuestionIds = new HashSet<int>();
+
+            //get the questionIds and answers
             foreach (SurveyResult s in surveyResults)
             {
-                questions.Add(db.ApplicationQuestions.Find(s.QuestionId));
+                foreach (string answer in s.Answers)
+                {
+                    answers.Add(Tuple.Create(s.QuestionId, answer));
+                }
+                   
+                    uniqueQuestionIds.Add(s.QuestionId);   
             }
-            questions.Distinct();
-            surveyResStat.SurveyQuestions = questions;
 
+            foreach (var a in answers)
+            {
+               int count= answers.Where(x => x.Item1 == a.Item1 && x.Item2 == a.Item2).Count();
+               countAnswers.Add(Tuple.Create(a.Item1, a.Item2, count));
+            }
+
+          
+           
+            //Add the questions
+            foreach (int i in uniqueQuestionIds)
+            {
+                questions.Add(db.ApplicationQuestions.Find(i));
+            }
+            var uniqueAnswersPerQuestion = answers.Distinct().ToList();
+            surveyResStat.SurveyQuestions = questions;
+            surveyResStat.Answers=answers;
+            surveyResStat.countAnswers = countAnswers;
+            surveyResStat.uniqueAnswersPerQuestion = uniqueAnswersPerQuestion;
 
             return View(surveyResStat);
         }
