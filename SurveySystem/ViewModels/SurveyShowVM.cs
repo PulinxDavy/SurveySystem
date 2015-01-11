@@ -12,9 +12,5 @@ namespace SurveySystem.ViewModels
 
         public Survey Survey { get; set; }
 
-        public Answers Answer { get; set; }
-
-        public List<string> PossibleAnswers { get; set; }
-
     }
 }
