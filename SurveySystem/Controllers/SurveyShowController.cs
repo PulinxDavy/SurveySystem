@@ -63,7 +63,7 @@ namespace SurveySystem.Controllers
 
                         surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup = surveyShowVM.QuestionGroupShowVM.QuestionGroups.ElementAt(index);
 
-                        return View(surveyShowVM);
+                        return View(surveyShowVM.QuestionGroupShowVM);
                     }
                     }else
                 {
@@ -85,7 +85,7 @@ namespace SurveySystem.Controllers
 
                         surveyShowVM.QuestionShowVM.CurrentQuestion =surveyShowVM.QuestionShowVM.Questions.ElementAt(index);
 
-                        return View(surveyShowVM);
+                        return View(surveyShowVM.QuestionShowVM);
                     }else{
                         return RedirectToAction("Index");
                     }
