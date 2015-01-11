@@ -161,7 +161,7 @@ namespace SurveySystem.Controllers
             HashSet<int> uniqueQuestionIds = new HashSet<int>();
 
             //get the questionIds and answers
-            foreach (SurveyResult s in surveyResults)
+            /*foreach (SurveyResult s in surveyResults)
             {
                 foreach (string answer in s.Answers)
                 {
@@ -169,7 +169,7 @@ namespace SurveySystem.Controllers
                 }
                    
                     uniqueQuestionIds.Add(s.QuestionId);   
-            }
+            }*/
 
             foreach (var a in answers)
             {
