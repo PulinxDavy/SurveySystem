@@ -35,13 +35,6 @@ namespace SurveySystem.Controllers
             {
                 surveys.Add(db.ApplicationSurveys.Find(i));
             }
-
-            Survey survey = new Survey();
-            survey.Title = "test";
-            Appreciation app = new Appreciation();
-            app.QuestionString = "test Qstring";
-            survey.Questions.Add(app);
-            surveys.Add(survey);
             surveyResultVM.Surveys = surveys;
             
             return View(surveyResultVM);

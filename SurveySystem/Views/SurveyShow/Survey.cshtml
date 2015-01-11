@@ -1,5 +1,6 @@
 ﻿@using System.Runtime.InteropServices
 @using SurveySystem.Models;
+
 @model SurveySystem.ViewModels.SurveyShowVM
 
 @{
@@ -11,14 +12,7 @@
 <div>
     <h4>@Html.DisplayFor(model => model.Survey.Title)</h4>
     <hr/>
-    <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Survey.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Survey.Description)
-        </dd>
-    </dl>
+    @Html.Partial("QuestionGroupsView")
 </div>
 <p>
     

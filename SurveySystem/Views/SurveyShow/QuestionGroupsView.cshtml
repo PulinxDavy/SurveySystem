@@ -1,0 +1,19 @@
+﻿@using System.Runtime.InteropServices
+@using SurveySystem.Models;
+
+@model SurveySystem.ViewModels.SurveyShowVM
+
+
+
+@foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
+{
+    <p>@Html.DisplayFor(modelItem => item.QuestionString)</p>
+}
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Next" name="next" class="btn btn-default" />
+    </div>
+</div>
+
+

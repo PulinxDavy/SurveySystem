@@ -194,6 +194,7 @@
     <Compile Include="Models\SurveyResult.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\EditQuestionGroupVM.cs" />
+    <Compile Include="ViewModels\QuestionGroupShowVM.cs" />
     <Compile Include="ViewModels\QuestionGroupVM.cs" />
     <Compile Include="ViewModels\QuestionVM.cs" />
     <Compile Include="ViewModels\SurveyShowVM.cs" />
@@ -290,6 +291,7 @@
     <Content Include="Views\Survey\Index.cshtml" />
     <Content Include="Views\SurveyShow\Survey.cshtml" />
     <Content Include="Views\SurveyShow\Index.cshtml" />
+    <Content Include="Views\SurveyShow\QuestionGroupsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

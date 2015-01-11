@@ -1,4 +1,5 @@
 ﻿using SurveySystem.Models;
+using SurveySystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +20,30 @@ namespace SurveySystem.Controllers
             return View(surveys);
         }
 
-        public ActionResult Survey()
+        public ActionResult Survey(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Survey survey = db.ApplicationSurveys.Find(id);
+            SurveyShowVM surveyShowVM = new SurveyShowVM();
+            QuestionGroupShowVM questionGroupShowVM = new QuestionGroupShowVM();
+            //Just for testing. Logic needed to keep track of which QuestionGroup currently needs rendering
+          //  questionGroupShowVM.CurrentQuestionGroup = survey.QuestionGroups.First();
+            surveyShowVM.QuestionGroupShowVM = questionGroupShowVM;
+            surveyShowVM.Survey = survey;
+            return View(surveyShowVM);
         }
 
 
-        public ActionResult Start(int id)
+     /*   public ActionResult Start(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             return View();
-        }
+        }*/
     }
 }

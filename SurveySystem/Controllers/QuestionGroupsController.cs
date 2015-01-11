@@ -41,7 +41,6 @@ namespace SurveySystem.Controllers
         public ActionResult Create()
         {
             QuestionGroupVM questionGroupVM = new QuestionGroupVM();
-       //     questionGroupVM.AllQuestions = new List<Question>();
             questionGroupVM.AllQuestions = db.ApplicationQuestions.ToList();
            
            
