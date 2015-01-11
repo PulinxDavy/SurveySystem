@@ -35,7 +35,7 @@ namespace SurveySystem.Controllers
             }
             Question question = Db.ApplicationQuestions.Find(id);
             QuestionVM q = CreateQuestionVM(question);
-            if (question == null)
+            if (q == null)
             {
                 return HttpNotFound();
             }

@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SelectedGroups.ToList().Count)
+                @Html.DisplayFor(modelItem => item.AllGroups.ToList().Count)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SelectedQuestions.ToList().Count)
+                @Html.DisplayFor(modelItem => item.AllQuestions.ToList().Count)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
