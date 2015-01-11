@@ -114,6 +114,17 @@ namespace SurveySystem.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
+                "dbo.SurveyResults",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SurveyId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false),
+                        QuestionId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.QuestionGroupQuestions",
                 c => new
                     {
@@ -181,6 +192,7 @@ namespace SurveySystem.Migrations
             DropTable("dbo.SurveyQuestions");
             DropTable("dbo.SurveyQuestionGroups");
             DropTable("dbo.QuestionGroupQuestions");
+            DropTable("dbo.SurveyResults");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

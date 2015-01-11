@@ -10,6 +10,8 @@ namespace SurveySystem.ViewModels
     {
         public List<SurveyResult> SurveyResults { get; set; }
         public List<Question> SurveyQuestions { get; set; }
-        public List<string> Answers { get; set; }
+        public List<Tuple<int,string>> Answers { get; set; }
+        public List<Tuple<int,string>> uniqueAnswersPerQuestion { get; set; }
+        public HashSet<Tuple<int, string, int>> countAnswers { get; set; }
     }
 }

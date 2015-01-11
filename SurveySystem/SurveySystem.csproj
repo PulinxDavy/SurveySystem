@@ -164,18 +164,15 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionGroupsController.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\SurveyResultsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201501101342179_init.cs" />
-    <Compile Include="Migrations\201501101342179_init.Designer.cs">
-      <DependentUpon>201501101342179_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501101924477_surveyresults.cs" />
-    <Compile Include="Migrations\201501101924477_surveyresults.Designer.cs">
-      <DependentUpon>201501101924477_surveyresults.cs</DependentUpon>
+    <Compile Include="Migrations\201501110029542_init.cs" />
+    <Compile Include="Migrations\201501110029542_init.Designer.cs">
+      <DependentUpon>201501110029542_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -197,6 +194,7 @@
     <Compile Include="ViewModels\EditQuestionGroupVM.cs" />
     <Compile Include="ViewModels\QuestionGroupVM.cs" />
     <Compile Include="ViewModels\QuestionVM.cs" />
+    <Compile Include="ViewModels\SurveyEditVM.cs" />
     <Compile Include="ViewModels\SurveyResultStatisticsVM.cs" />
     <Compile Include="ViewModels\SurveyResultVM.cs" />
     <Compile Include="ViewModels\SurveyVM.cs" />
@@ -287,6 +285,11 @@
     <Content Include="Views\SurveyResults\Edit.cshtml" />
     <Content Include="Views\SurveyResults\Index.cshtml" />
     <Content Include="Views\SurveyResults\Results.cshtml" />
+    <Content Include="Views\Survey\Create.cshtml" />
+    <Content Include="Views\Survey\Delete.cshtml" />
+    <Content Include="Views\Survey\Details.cshtml" />
+    <Content Include="Views\Survey\Edit.cshtml" />
+    <Content Include="Views\Survey\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -299,11 +302,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501101342179_init.resx">
-      <DependentUpon>201501101342179_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501101924477_surveyresults.resx">
-      <DependentUpon>201501101924477_surveyresults.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501110029542_init.resx">
+      <DependentUpon>201501110029542_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
