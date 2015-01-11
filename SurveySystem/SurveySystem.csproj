@@ -170,10 +170,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201501110029542_init.cs" />
-    <Compile Include="Migrations\201501110029542_init.Designer.cs">
-      <DependentUpon>201501110029542_init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Agreement.cs" />
@@ -274,11 +270,6 @@
     <Content Include="Views\QuestionGroups\Details.cshtml" />
     <Content Include="Views\QuestionGroups\Edit.cshtml" />
     <Content Include="Views\QuestionGroups\Index.cshtml" />
-    <Content Include="Views\Surveys\Create.cshtml" />
-    <Content Include="Views\Surveys\Delete.cshtml" />
-    <Content Include="Views\Surveys\Details.cshtml" />
-    <Content Include="Views\Surveys\Edit.cshtml" />
-    <Content Include="Views\Surveys\Index.cshtml" />
     <Content Include="Views\SurveyResults\Create.cshtml" />
     <Content Include="Views\SurveyResults\Delete.cshtml" />
     <Content Include="Views\SurveyResults\Details.cshtml" />
@@ -300,11 +291,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501110029542_init.resx">
-      <DependentUpon>201501110029542_init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
