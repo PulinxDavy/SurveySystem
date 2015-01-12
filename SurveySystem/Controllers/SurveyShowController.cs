@@ -11,12 +11,12 @@ namespace SurveySystem.Controllers
 {
     public class SurveyShowController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext Db = new ApplicationDbContext();
 
         // GET: SurveyShow
         public ActionResult Index()
         {
-            List<Survey> surveys = db.ApplicationSurveys.Where(x => x.Active == true).ToList();
+            List<Survey> surveys = Db.ApplicationSurveys.Where(x => x.Active == true).ToList();
             return View(surveys);
         }
 
@@ -26,74 +26,57 @@ namespace SurveySystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Survey survey = db.ApplicationSurveys.Find(id);
+            Survey survey = Db.ApplicationSurveys.Find(id);
             SurveyShowVM surveyShowVM = new SurveyShowVM();
             QuestionGroupShowVM questionGroupShowVM = new QuestionGroupShowVM();
             //Just for testing. Logic needed to keep track of which QuestionGroup currently needs rendering
-            questionGroupShowVM.CurrentQuestionGroup = survey.QuestionGroups.First();
+            questionGroupShowVM.QuestionGroup = survey.QuestionGroups.First();
             surveyShowVM.QuestionGroupShowVM = questionGroupShowVM;
             surveyShowVM.Survey = survey;
             return View(surveyShowVM);
         }
 
+        public ActionResult Group(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Survey survey = Db.ApplicationSurveys.Find(id);
+            QuestionGroupShowVM qG = new QuestionGroupShowVM();
+            qG.Survey = survey;
+            if (survey.QuestionGroups == null || survey.QuestionGroups.Count == 0)
+            {
+                return RedirectToAction("Question");
+            }
+            qG.QuestionGroup = survey.QuestionGroups.First();
+            qG.CurrentQuestionGroupIndex = 1;
+            return View(qG);
+        }
 
-      /* public ActionResult QuestionGroupsView(SurveyShowVM surveyShowVM)
+        public ActionResult Group(int id, int index)
+        {
+
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult Group([Bind(Include = "Survey, QuestionGroup, CurrentQuestionGroupIndex, OtherAnswer")]QuestionGroupShowVM questionGroupShow)
         {
             if (ModelState.IsValid)
             {
-                int index = surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroupIndex;
-                if ( index < surveyShowVM.QuestionGroupShowVM.QuestionGroups.Count())
+                foreach (Question q in questionGroupShow.QuestionGroup.Questions)
                 {
-                    index++;
-                    surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroupIndex = index;
-
-                    foreach (Question q in surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
-                    {
-                        SurveyResult surveyResult = new SurveyResult();
-                        surveyResult.QuestionId = q.Id;
-                        surveyResult.SurveyId = surveyShowVM.Survey.Id;
-                        Answers answer = new Answers();
-                        answer.Answer = q.Answer;
-
-                        surveyResult.Answer = answer;
-
-                        db.SurveyResults.Add(surveyResult);
-                        db.SaveChanges();
-
-
-                        surveyShowVM.QuestionGroupShowVM.CurrentQuestionGroup = surveyShowVM.QuestionGroupShowVM.QuestionGroups.ElementAt(index);
-
-                        return PartialView(surveyShowVM.QuestionGroupShowVM);
-                    }
-                    }else
-                {
-                    index = surveyShowVM.QuestionShowVM.CurrentQuestionIndex;
-
-                    if(index < surveyShowVM.QuestionShowVM.Questions.Count()){
-                        index++;
-                        Question q = surveyShowVM.QuestionShowVM.CurrentQuestion;
-                         SurveyResult surveyResult = new SurveyResult();
-                        surveyResult.QuestionId = q.Id;
-                        surveyResult.SurveyId = surveyShowVM.Survey.Id;
-                        Answers answer = new Answers();
-                        answer.Answer = q.Answer;
-
-                        surveyResult.Answer = answer;
-
-                        db.SurveyResults.Add(surveyResult);
-                        db.SaveChanges();
-
-                        surveyShowVM.QuestionShowVM.CurrentQuestion =surveyShowVM.QuestionShowVM.Questions.ElementAt(index);
-
-                        return PartialView(surveyShowVM.QuestionShowVM);
-                    }else{
-                        return RedirectToAction("Index");
-                    }
+                    Answers answer = 
                 }
-                
-                }
-           return PartialView(surveyShowVM);
-            }*/
+            }
+            return View();
+        }
 
+        public ActionResult Question(int id)
+        {
+            
+            return View();
         }
     }
+}

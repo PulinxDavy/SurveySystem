@@ -292,7 +292,8 @@
     <Content Include="Views\Survey\Index.cshtml" />
     <Content Include="Views\SurveyShow\Survey.cshtml" />
     <Content Include="Views\SurveyShow\Index.cshtml" />
-    <Content Include="Views\SurveyShow\QuestionGroupsView.cshtml" />
+    <Content Include="Views\SurveyShow\Group.cshtml" />
+    <Content Include="Views\SurveyShow\Question.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,13 +1,13 @@
 ﻿@using System.Runtime.InteropServices
 @using SurveySystem.Models;
 
-@model SurveySystem.ViewModels.SurveyShowVM
+@model SurveySystem.ViewModels.QuestionGroupShowVM
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     int counter = 0;
-foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
+foreach (var item in Model.QuestionGroup.Questions)
 {
     counter++;
     string name = "answer" + counter;
@@ -47,8 +47,8 @@ foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
                 if (item.Type == "MultipleValues")
                 {
                     @Html.CheckBox("Other")
-                    @Html.DisplayFor(modelItem => modelItem.QuestionGroupShowVM.OtherAnswer)
-                    @Html.EditorFor(model => model.QuestionGroupShowVM.OtherAnswer)
+                    @Html.DisplayFor(modelItem => modelItem)
+                    @Html.EditorFor(model => model)
                 }
             }
             else if (item.Type == "OpenEnd")

@@ -8,10 +8,9 @@ namespace SurveySystem.ViewModels
 {
     public class QuestionGroupShowVM
     {
-        public List<QuestionGroup> QuestionGroups { get; set; }
-        public QuestionGroup CurrentQuestionGroup { get; set; }
-        public List<SurveyResult> SurveyResults { get; set; }
+        public Survey Survey { get; set; }
+        public QuestionGroup QuestionGroup { get; set; }
         public int CurrentQuestionGroupIndex { get; set; }
-        public string OtherAnswer { get; set; }
+        public List<Tuple<int, string>> AnswersList { get; set; }
     }
 }
