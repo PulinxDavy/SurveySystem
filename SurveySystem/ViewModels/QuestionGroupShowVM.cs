@@ -12,5 +12,6 @@ namespace SurveySystem.ViewModels
         public QuestionGroup CurrentQuestionGroup { get; set; }
         public List<SurveyResult> SurveyResults { get; set; }
         public int CurrentQuestionGroupIndex { get; set; }
+        public string OtherAnswer { get; set; }
     }
 }

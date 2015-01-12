@@ -9,9 +9,7 @@ namespace SurveySystem.ViewModels
     public class SurveyShowVM
     {
         public int Id { get; set; }
-
         public Survey Survey { get; set; }
-
         public QuestionGroupShowVM QuestionGroupShowVM { get; set; }
         public QuestionShowVM QuestionShowVM { get; set; }
 

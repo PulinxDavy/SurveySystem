@@ -32,7 +32,9 @@ foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
             else if (item.Type == "MultipleValues" || item.Type == "PreDefined")
             {
                 Dictionary<string, bool> list = new Dictionary<string, bool>();
-                foreach (var answer in item.PossibleAnswers)
+                char delimiter = Convert.ToChar(";");
+                string[] splitString = item.Answer.Split(delimiter);
+                foreach (var answer in splitString)
                 {
                     bool b = false;
                     list.Add(answer, b);
@@ -41,6 +43,12 @@ foreach (var item in Model.QuestionGroupShowVM.CurrentQuestionGroup.Questions)
                 {
                     @Html.CheckBoxFor(modelItem => boolPair.Value)
                     @Html.DisplayFor(modelItem => boolPair.Key)
+                }
+                if (item.Type == "MultipleValues")
+                {
+                    @Html.CheckBox("Other")
+                    @Html.DisplayFor(modelItem => modelItem.QuestionGroupShowVM.OtherAnswer)
+                    @Html.EditorFor(model => model.QuestionGroupShowVM.OtherAnswer)
                 }
             }
             else if (item.Type == "OpenEnd")

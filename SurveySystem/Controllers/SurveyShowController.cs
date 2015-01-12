@@ -30,14 +30,14 @@ namespace SurveySystem.Controllers
             SurveyShowVM surveyShowVM = new SurveyShowVM();
             QuestionGroupShowVM questionGroupShowVM = new QuestionGroupShowVM();
             //Just for testing. Logic needed to keep track of which QuestionGroup currently needs rendering
-           // questionGroupShowVM.CurrentQuestionGroup = survey.QuestionGroups.First();
+            questionGroupShowVM.CurrentQuestionGroup = survey.QuestionGroups.First();
             surveyShowVM.QuestionGroupShowVM = questionGroupShowVM;
             surveyShowVM.Survey = survey;
             return View(surveyShowVM);
         }
 
 
-       public ActionResult QuestionGroupsView(SurveyShowVM surveyShowVM)
+      /* public ActionResult QuestionGroupsView(SurveyShowVM surveyShowVM)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace SurveySystem.Controllers
                 
                 }
            return PartialView(surveyShowVM);
-            }
+            }*/
 
         }
     }
