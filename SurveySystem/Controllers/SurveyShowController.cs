@@ -2,6 +2,7 @@
 using SurveySystem.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,7 +37,7 @@ namespace SurveySystem.Controllers
             return View(surveyShowVM);
         }
 
-        public ActionResult Group(int id)
+        public ActionResult Group1(int id)
         {
             if (id == null)
             {
@@ -54,28 +55,62 @@ namespace SurveySystem.Controllers
             return View(qG);
         }
 
-        public ActionResult Group(int id, int index)
+        public ActionResult Group(int id, int? index)
         {
-
+            if (index == null)
+            {
+                Group1(id);
+            }
             return View();
+
+            
         }
 
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult Group([Bind(Include = "Survey, QuestionGroup, CurrentQuestionGroupIndex, OtherAnswer")]QuestionGroupShowVM questionGroupShow)
         {
             if (ModelState.IsValid)
             {
-                foreach (Question q in questionGroupShow.QuestionGroup.Questions)
+                int surveyId = questionGroupShow.Survey.Id;
+                DbContextTransaction transaction = Db.Database.BeginTransaction();
+                try
                 {
-                    Answers answer = 
+                    foreach (Question q in questionGroupShow.QuestionGroup.Questions)
+                    {
+
+                        Answers answer = new Answers();
+                        answer.Answer = q.Answer;
+
+                        SurveyResult surveyResult = new SurveyResult();
+                        surveyResult.Answer = answer;
+                        surveyResult.QuestionId = q.Id;
+                        surveyResult.SurveyId = surveyId;
+
+                        Db.SurveyResults.Add(surveyResult);
+                        Db.SaveChanges();
+                    }
+
+                    transaction.Commit();
                 }
+                catch (Exception)
+                {
+
+                    transaction.Rollback();
+                }
+                int index = questionGroupShow.CurrentQuestionGroupIndex;
+                int id = questionGroupShow.Survey.Id;
+
+
+
+                return RedirectToAction("Group", new { id = id, index = index });
             }
             return View();
         }
 
         public ActionResult Question(int id)
         {
-            
+
             return View();
         }
     }
