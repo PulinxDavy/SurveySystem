@@ -2,6 +2,7 @@
 using SurveySystem.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,7 +37,7 @@ namespace SurveySystem.Controllers
             return View(surveyShowVM);
         }
 
-        public ActionResult Group(int id)
+        public ActionResult Group1(int id)
         {
             if (id == null)
             {
@@ -52,12 +53,12 @@ namespace SurveySystem.Controllers
             qG.QuestionGroup = survey.QuestionGroups.First();
             if (qG.CurrentQuestionGroupIndex == 0)
             {
-                qG.CurrentQuestionGroupIndex = 1;
-            }
+            qG.CurrentQuestionGroupIndex = 1;
+        }
             else
-            {
+        {
                 qG.CurrentQuestionGroupIndex = qG.CurrentQuestionGroupIndex++;
-            }
+        }
             return View(qG);
         }
 
