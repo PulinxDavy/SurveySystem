@@ -10,6 +10,7 @@ using SurveySystem.ViewModels;
 
 namespace SurveySystem.Controllers
 {
+    [Authorize(Roles = "ADMINISTRATOR, ENQUETEADMINISTRATOR")]
     public class SurveyController : BaseController
     {
         // GET: Survey

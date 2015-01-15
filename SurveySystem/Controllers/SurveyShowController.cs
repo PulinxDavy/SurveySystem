@@ -10,10 +10,9 @@ using System.Web.Mvc;
 
 namespace SurveySystem.Controllers
 {
-    public class SurveyShowController : Controller
+    [Authorize(Roles = "ADMINISTRATOR, ENQUETEADMINISTRATOR, ENQUETEUSER, USER")]
+    public class SurveyShowController : BaseController
     {
-        private ApplicationDbContext Db = new ApplicationDbContext();
-
         // GET: SurveyShow
         public ActionResult Index()
         {
@@ -37,7 +36,7 @@ namespace SurveySystem.Controllers
             return View(surveyShowVM);
         }
 
-        public ActionResult Group1(int id)
+        public ActionResult Group(int id)
         {
             if (id == null)
             {

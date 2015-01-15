@@ -11,6 +11,7 @@ using SurveySystem.ViewModels;
 
 namespace SurveySystem.Controllers
 {
+    [Authorize(Roles = "ADMINISTRATOR, ENQUETEADMINISTRATOR")]
     public class SurveyResultsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

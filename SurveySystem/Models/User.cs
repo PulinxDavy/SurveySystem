@@ -19,6 +19,6 @@ namespace SurveySystem.Models
 
         [DataType(DataType.PhoneNumber)]
         public string Cellphone { get; set; }
-
+        
     }
 }

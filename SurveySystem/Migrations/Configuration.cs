@@ -1,3 +1,7 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using SurveySystem.Models;
+
 namespace SurveySystem.Migrations
 {
     using System;
@@ -9,7 +13,7 @@ namespace SurveySystem.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(SurveySystem.Models.ApplicationDbContext context)
@@ -26,6 +30,25 @@ namespace SurveySystem.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "AppAdmin" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "founder"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "founder" };
+
+                manager.Create(user, "ChangeItAsap!");
+                manager.AddToRole(user.Id, "AppAdmin");
+            }
         }
     }
 }

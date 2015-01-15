@@ -6,10 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SurveySystem.Models;
 
 namespace SurveySystem.Controllers
 {
+    [Authorize(Roles = "ADMINISTRATOR")]
     public class UsersController : BaseController
     {
 
@@ -58,6 +61,7 @@ namespace SurveySystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 Db.Entry(user).State = EntityState.Modified;
                 Db.SaveChanges();
                 return RedirectToAction("Index");

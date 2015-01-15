@@ -12,6 +12,7 @@ using System.Diagnostics;
 
 namespace SurveySystem.Controllers
 {
+    [Authorize(Roles = "ADMINISTRATOR, ENQUETEADMINISTRATOR")]
     public class QuestionGroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

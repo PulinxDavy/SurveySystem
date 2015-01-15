@@ -189,6 +189,7 @@
     <Compile Include="Models\PreDefinedQ.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionGroup.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Models\SelectionQ.cs" />
     <Compile Include="Models\Survey.cs" />
     <Compile Include="Models\SurveyResult.cs" />
@@ -294,6 +295,10 @@
     <Content Include="Views\SurveyShow\Index.cshtml" />
     <Content Include="Views\SurveyShow\Group.cshtml" />
     <Content Include="Views\SurveyShow\Question.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
+    <Content Include="Views\Role\ManageUserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

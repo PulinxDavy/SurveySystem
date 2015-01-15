@@ -11,8 +11,10 @@ using SurveySystem.ViewModels;
 
 namespace SurveySystem.Controllers
 {
+    [Authorize(Roles = "ADMINISTRATOR, ENQUETEADMINISTRATOR")]
     public class QuestionController : BaseController
     {
+        
         // GET: Question
         public ActionResult Index()
         {
