@@ -50,33 +50,57 @@ namespace SurveySystem.Controllers
                 return RedirectToAction("Question");
             }
             qG.QuestionGroup = survey.QuestionGroups.First();
-            qG.CurrentQuestionGroupIndex = 1;
+            if (qG.CurrentQuestionGroupIndex == 0)
+            {
+                qG.CurrentQuestionGroupIndex = 1;
+            }
+            else
+            {
+                qG.CurrentQuestionGroupIndex = qG.CurrentQuestionGroupIndex++;
+            }
             return View(qG);
         }
 
-        public ActionResult Group(int id, int index)
-        {
-
-            return View();
-        }
-
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Group([Bind(Include = "Survey, QuestionGroup, CurrentQuestionGroupIndex, OtherAnswer")]QuestionGroupShowVM questionGroupShow)
+        public ActionResult Group([Bind(Include = "Survey, QuestionGroup, CurrentQuestionGroupIndex, AnswersList")]QuestionGroupShowVM questionGroupShow)
         {
             if (ModelState.IsValid)
             {
-                foreach (Question q in questionGroupShow.QuestionGroup.Questions)
+                foreach (Tuple<int, string> t in questionGroupShow.AnswersList)
                 {
-                    Answers answer = 
+                    SurveyResult surveyResult = new SurveyResult();
+                    surveyResult.Answer.Answer = t.Item2;
+                    surveyResult.SurveyId = questionGroupShow.Survey.Id;
+                    surveyResult.QuestionId = t.Item1;
+
+                    Db.SurveyResults.Add(surveyResult);
+                    Db.SaveChanges();
                 }
+
+                NextGroup(questionGroupShow.CurrentQuestionGroupIndex, questionGroupShow.Survey);
             }
-            return View();
+            return View(questionGroupShow);
         }
 
         public ActionResult Question(int id)
         {
             
             return View();
+        }
+
+        public void NextGroup(int index, Survey survey)
+        {
+            int count = 0;
+            foreach (QuestionGroup qG in survey.QuestionGroups)
+            {
+                count++;
+                if (index < count)
+                {
+                    Group(qG.Id);
+                    break;
+                }
+            }
         }
     }
 }

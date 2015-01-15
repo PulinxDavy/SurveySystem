@@ -3,9 +3,20 @@
 
 @model SurveySystem.ViewModels.QuestionGroupShowVM
 
+@{
+    ViewBag.Title = "Question Group";
+}
+
+<h2>@Html.DisplayFor(model => model.QuestionGroup.Title)</h2>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @Html.HiddenFor(model => model.Survey)
+    @Html.HiddenFor(model => model.CurrentQuestionGroupIndex)
+    
     int counter = 0;
 foreach (var item in Model.QuestionGroup.Questions)
 {
@@ -25,8 +36,10 @@ foreach (var item in Model.QuestionGroup.Questions)
                 }
                 foreach (var answer in list)
                 {
-                    @Html.RadioButton(name, answer)
-                    @Html.DisplayFor(modelItem => answer, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="col-md-1">
+                        @Html.RadioButton(name, answer)
+                        @Html.DisplayFor(modelItem => answer)
+                    </div>
                 }
             }
             else if (item.Type == "MultipleValues" || item.Type == "PreDefined")
@@ -41,27 +54,32 @@ foreach (var item in Model.QuestionGroup.Questions)
                 }
                 foreach (KeyValuePair<string, bool> boolPair in list)
                 {
-                    @Html.CheckBoxFor(modelItem => boolPair.Value)
-                    @Html.DisplayFor(modelItem => boolPair.Key)
+                    <div class="col-md-4">
+                        @Html.CheckBoxFor(modelItem => boolPair.Value)
+                        @Html.DisplayFor(modelItem => boolPair.Key)
+                    </div>
                 }
                 if (item.Type == "MultipleValues")
                 {
-                    @Html.CheckBox("Other")
-                    @Html.DisplayFor(modelItem => modelItem)
-                    @Html.EditorFor(model => model)
+                    <div class="col-md-4">
+                        @Html.CheckBox("Other")
+                        @Html.DisplayFor(modelItem => modelItem)
+                        @Html.EditorFor(model => model)
+                    </div>
                 }
-            }
-            else if (item.Type == "OpenEnd")
-            {
-                @Html.TextAreaFor(modelItem => item.Answer)
-            }
-        </div>
+                }
+                else if (item.Type == "OpenEnd")
+                {
+                    @Html.TextAreaFor(modelItem => item.Answer)
+                }
+         </div>
     </div>
+    <hr/>
 }
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" value="Next" name="Next" class="btn btn-default" />
+        <input type="submit" value="Next" class="btn btn-default" />
     </div>
 </div>
 }
