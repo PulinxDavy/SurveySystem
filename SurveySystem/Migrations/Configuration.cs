@@ -34,8 +34,14 @@ namespace SurveySystem.Migrations
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
                 var role = new IdentityRole { Name = "ADMINISTRATOR" };
+                var role2 = new IdentityRole { Name = "ENQUETEADMINISTRATOR" };
+                var role3 = new IdentityRole { Name = "USER" };
+                var role4 = new IdentityRole { Name = "ENQUETEUSER" };
 
                 manager.Create(role);
+                manager.Create(role2);
+                manager.Create(role3);
+                manager.Create(role4);
             }
 
             if (!(context.Users.Any(u => u.UserName == "admin@admin.com")))
