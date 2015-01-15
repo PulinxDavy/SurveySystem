@@ -29,8 +29,6 @@ namespace SurveySystem.Controllers
             Survey survey = Db.ApplicationSurveys.Find(id);
             SurveyShowVM surveyShowVM = new SurveyShowVM();
             QuestionGroupShowVM questionGroupShowVM = new QuestionGroupShowVM();
-            //Just for testing. Logic needed to keep track of which QuestionGroup currently needs rendering
-            questionGroupShowVM.QuestionGroup = survey.QuestionGroups.First();
             surveyShowVM.QuestionGroupShowVM = questionGroupShowVM;
             surveyShowVM.Survey = survey;
             return View(surveyShowVM);

@@ -1,9 +1,8 @@
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using SurveySystem.Models;
-
 namespace SurveySystem.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using SurveySystem.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -30,25 +29,25 @@ namespace SurveySystem.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
+            if (!context.Roles.Any(r => r.Name == "ADMINISTRATOR"))
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "AppAdmin" };
+                var role = new IdentityRole { Name = "ADMINISTRATOR" };
 
                 manager.Create(role);
             }
 
-            if (!context.Users.Any(u => u.UserName == "founder"))
+            if (!(context.Users.Any(u => u.UserName == "admin@admin.com")))
             {
-                var store = new UserStore<ApplicationUser>(context);
-                var manager = new UserManager<ApplicationUser>(store);
-                var user = new ApplicationUser { UserName = "founder" };
-
-                manager.Create(user, "ChangeItAsap!");
-                manager.AddToRole(user.Id, "AppAdmin");
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var userToInsert = new ApplicationUser { UserName = "admin@admin.com", PhoneNumber = "0797697898"};
+                
+                userManager.Create(userToInsert, "Password@123");
+                userManager.AddToRole(userToInsert.Id, "ADMINISTRATOR");
             }
         }
     }
 }
+    
